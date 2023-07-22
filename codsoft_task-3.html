@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple Calculator</title>
+        <style>
+            body{
+                background:goldenrod;
+            }
+            .container
+            {
+                width:99%;
+                height:100vh;
+                background:linear-gradient(rgb(202, 30, 125),indigo,rgb(130, 9, 29));
+                display:flex;
+                align-items:center;
+                justify-content: center;
+                position: fixed;
+            }
+            .calculator
+            {
+                background:#3a4452;
+                padding:30px;
+                border-radius:10px;
+                position:fixed;         
+            }
+            .calculator form input{
+                border:0;
+                outline: 0;
+                width: 60px;
+                height:60px;
+                border-radius: 10px;
+                box-shadow: -8px -8px 15px rgba(255,255,255,0.1),5px 5px 15px rgba(0,0,0,0.2);
+                background:transparent;
+                font-size:20px;
+                color:#fff;
+                cursor:pointer;
+                margin:10px;
+                text-align:center;
+                
+            }
+            .calculator form input:hover
+            {
+                background-color: black;
+            }
+            
+            form .display
+            {
+                display:flex;
+                justify-content:flex-end;
+                margin:25px 0;
+            } 
+            form .display input{
+                text-align:right;
+                font-size:45px;
+                box-shadow:none;
+                flex:2;
+                background-color: antiquewhite;
+                color:black;
+                padding:15px 0;
+                text-decoration: none;
+            }
+            form .display input:hover{
+                background-color: antiquewhite;
+                transition:0;
+                transform:none;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="calculator">
+                <form>
+                    <div class="display">
+                       <input type="text" id="result" readonly>
+                    </div>
+                    <div>
+                        <input type="button" style="background-color:red; " onclick="clearDisplay()" value="AC">
+                        <input type="button" onclick="deleteLast()" value="DEL">
+                        <input type="button" onclick="appendToDisplay('.')" value=".">
+                        <input type="button" onclick="appendToDisplay('*')" value="X">
+                    </div>
+                    <div>
+                        <input type="button" onclick="appendToDisplay('7')" value="7">
+                         <input type="button" onclick="appendToDisplay('8')" value="8">
+                         <input type="button" onclick="appendToDisplay('9')" value="9">
+                         <input type="button" onclick="appendToDisplay('/')" value="%">
+                    </div>
+                    <div>
+                        <input type="button" onclick="appendToDisplay('4')" value="4">
+                         <input type="button" onclick="appendToDisplay('5')" value="5">
+                          <input type="button" onclick="appendToDisplay('6')" value="6">
+                          <input type="button" onclick="appendToDisplay('+')" value="+">
+                    </div>
+                    <div>
+                        <input type="button" onclick="appendToDisplay('1')" value="1">
+                        <input type="button" onclick="appendToDisplay('2')" value="2">
+                        <input type="button" onclick="appendToDisplay('3')" value="3">
+                        <input type="button" style="font-size:30px;" onclick="appendToDisplay('-')" value="-">
+                    </div>
+                    <div>
+                        <input type="button" onclick="appendToDisplay('(')" value="(">
+                        <input type="button" onclick="appendToDisplay('0')" value="0">
+                         <input type="button" onclick="appendToDisplay(')')" value=")">
+                        <input type="button" style="background-color:white; color:black;" onclick="calculateResult()" value="=">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            function appendToDisplay(value) {
+              document.getElementById('result').value += value;
+            }
+        
+            function clearDisplay() {
+              document.getElementById('result').value = '';
+            }
+        
+            function deleteLast() {
+              let currentValue = document.getElementById('result').value;
+              document.getElementById('result').value = currentValue.slice(0, -1);
+            }
+        
+            function calculateResult() {
+              let expression = document.getElementById('result').value;
+              let result;
+        
+              try {
+                result = eval(expression);
+              } catch (error) {
+                result = 'Error';
+              }
+        
+              document.getElementById('result').value = result;
+              adjustFontSize();
+            }
+          function adjustFontSize() {
+             const result = document.getElementById('result');
+            const fontSize = Math.min(48, (260 / result.value.length));
+            result.style.fontSize = fontSize + 'px';
+            
+           }
+      
+    
+    
+          </script>
+    </body>
+</html>
